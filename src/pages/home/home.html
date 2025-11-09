@@ -1,0 +1,20 @@
+<app-category-bar></app-category-bar>
+<main class="container mx-auto px-6 lg:px-8 mt-20">
+    <p-carousel [value]="slides" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="4000"
+        [showIndicators]="true" [showNavigators]="true">
+
+        <ng-template pTemplate="item" let-slide>
+            <img [src]="slide.image" class="w-full h-64 md:h-96 object-cover rounded-lg" />
+        </ng-template>
+    </p-carousel>
+</main>
+
+<main class="container mx-auto px-6 lg:px-8 mt-6">
+    <p-carousel [value]="slides" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="4000"
+        [showIndicators]="true" [showNavigators]="true">
+
+        <ng-template pTemplate="item" let-slide>
+            <img [src]="slide.image" class="w-full h-64 md:h-96 object-cover rounded-lg" />
+        </ng-template>
+    </p-carousel>
+</main>

@@ -19,10 +19,8 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
               "src/custom-theme.scss",
@@ -35,7 +33,40 @@
             }
           },
           "configurations": {
+            "default": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "outputHashing": "all"
+            },
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.production.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true,
+              "outputHashing": "all",
               "budgets": [
                 {
                   "type": "initial",
@@ -47,13 +78,18 @@
                   "maximumWarning": "4kB",
                   "maximumError": "8kB"
                 }
-              ],
-              "outputHashing": "all"
+              ]
             },
             "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ],
               "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "extractLicenses": false
             }
           },
           "defaultConfiguration": "production"
@@ -61,14 +97,20 @@
         "serve": {
           "builder": "@angular/build:dev-server",
           "configurations": {
+            "default": {
+              "buildTarget": "netmeds2:build:default"
+            },
             "production": {
               "buildTarget": "netmeds2:build:production"
+            },
+            "staging": {
+              "buildTarget": "netmeds2:build:staging"
             },
             "development": {
               "buildTarget": "netmeds2:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "default"
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"
@@ -82,10 +124,8 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
               "src/styles.css"

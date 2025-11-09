@@ -1,2 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+/* تخصيص ألوان الـ Popover في PrimeNG 20 */
+:root {
+  /* خلفية الـ Popover */
+  --p-popover-background: oklch(98.4% 0.014 180.72) !important;
+
+  /* لون البوردر */
+  --p-popover-border-color:oklch(95.3% 0.051 180.801) !important; /* Tailwind gray-200 */
+
+  /* ظل خفيف */
+  --p-popover-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+
+  /* لون المثلث */
+  --p-popover-arrow-background: #ffffff !important;
+  --p-popover-arrow-border-color: #e5e7eb !important;
+}
+.location-popover {
+  --p-popover-background: #ff0000 !important;
+  --p-popover-border-color: #14b8a6 !important; /* لون فيروزي مثلاً */
+  --p-popover-arrow-background: #ffffff !important;
+  --p-popover-arrow-border-color: #14b8a6 !important;
+  --p-popover-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}

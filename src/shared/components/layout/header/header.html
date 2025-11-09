@@ -1,1 +1,258 @@
-<p>header works!</p>
+<header class="bg-white shadow-lg border-b border-gray-100 sticky top-0 z-50">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo and Location Section -->
+            <div class="flex items-center space-x-4 lg:space-x-8">
+                <!-- Logo -->
+                <a routerLink="/" class="flex items-center group" aria-label="Netmeds Home">
+                    <div class="rounded-full p-2 group-hover:bg-teal-50 transition-all duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="36" viewBox="0 0 132 40" role="img"
+                            aria-labelledby="netmedsLogoTitle">
+                            <title id="netmedsLogoTitle">Netmeds - Your Trusted Online Pharmacy</title>
+                            <g fill="#0d9488">
+                                <path
+                                    d="M20,10 C15,10 10,15 10,20 C10,25 15,30 20,30 C25,30 30,25 30,20 C30,15 25,10 20,10 Z M20,25 C18,25 16,23 16,21 C16,19 18,17 20,17 C22,17 24,19 24,21 C24,23 22,25 20,25 Z" />
+                                <path
+                                    d="M25,15 L25,25 L20,20 L15,25 L15,15 L17,15 L17,22 L20,19 L23,22 L23,15 L25,15 Z" />
+                            </g>
+                            <text x="40" y="25" font-family="Arial, sans-serif" font-size="18" font-weight="bold"
+                                fill="#0d9488">
+                                Netmeds
+                            </text>
+                        </svg>
+                    </div>
+                </a>
+
+                <!-- Location Selector - Hidden on mobile -->
+                <div class="hidden md:block relative ">
+                    <button
+                        class="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 bg-white hover:bg-gray-50 hover:border-teal-300 cursor-pointer transition-all duration-200"
+                        (click)="op.toggle($event)" aria-haspopup="dialog" aria-expanded="false"
+                        aria-label="Change delivery location">
+                        <fa-icon [icon]="faLocationDot" class="text-teal-600"></fa-icon>
+                        <span class="text-sm text-gray-700">
+                            Deliver to <strong class="text-gray-900">Cairo</strong>
+                        </span>
+                        <fa-icon [icon]="faChevronDown" class="text-teal-600 text-xs ml-1"></fa-icon>
+                    </button>
+
+                    <!-- Location Popover -->
+                    <p-popover #op styleClass="custom-popover shadow-xl rounded-2xl">
+                        <ng-template #content>
+                            <div class="flex flex-col gap-4 p-4 w-80">
+                                <h2 class="text-lg font-semibold text-gray-800">Choose delivery location</h2>
+
+                                @if(!enterPINCode){
+                                <div class="space-y-3">
+                                    <p class="text-gray-600 text-sm">
+                                        Sign in or set delivery location to check product availability, offers and more.
+                                    </p>
+
+                                    <button
+                                        class="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-xl py-2.5 px-4 transition-colors duration-200">
+                                        Sign in to select address
+                                    </button>
+
+                                    <div class="space-y-2">
+                                        <button
+                                            class="w-full text-left p-3 text-teal-700 font-medium cursor-pointer flex items-center gap-3 hover:bg-teal-50 rounded-xl transition-colors"
+                                            (click)="enterPINCode = true">
+                                            <fa-icon [icon]="faMapPin" class="text-teal-600"></fa-icon>
+                                            <span>Enter a PIN Code</span>
+                                        </button>
+
+                                        <button
+                                            class="w-full text-left p-3 text-teal-700 font-medium cursor-pointer flex items-center gap-3 hover:bg-teal-50 rounded-xl transition-colors">
+                                            <fa-icon [icon]="faLocationCrosshairs" class="text-teal-600"></fa-icon>
+                                            <span>Detect my location</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                }
+                                @else {
+                                <div class="space-y-4">
+                                    <p class="text-gray-600 text-sm">
+                                        Enter your PIN code to check product availability at your location.
+                                    </p>
+
+                                    <div class="relative">
+                                        <input type="text" maxlength="6" minlength="6"
+                                            class="w-full bg-white border border-gray-300 rounded-xl py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition"
+                                            placeholder="Enter PIN Code" aria-label="Enter PIN Code" />
+                                    </div>
+
+                                    <div class="flex gap-3">
+                                        <button (click)="enterPINCode = false"
+                                            class="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">
+                                            Cancel
+                                        </button>
+                                        <button
+                                            class="flex-1 px-4 py-2.5 rounded-xl bg-teal-600 text-white hover:bg-teal-700 transition-colors font-medium">
+                                            Apply
+                                        </button>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </ng-template>
+                    </p-popover>
+                </div>
+            </div>
+
+            <!-- Search Bar - Centered -->
+            <div class="flex-1 max-w-2xl mx-4 lg:mx-8">
+                <div class="relative">
+                    <fa-icon [icon]="faSearch"
+                        class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></fa-icon>
+                    <input type="text" placeholder="Search for Medicines, Health & Wellness..."
+                        class="w-full pl-12 pr-4 py-3 rounded-full border border-gray-300 focus:border-teal-400 bg-white shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-400 transition-all duration-200"
+                        aria-label="Search products" />
+                </div>
+            </div>
+
+            <!-- User Actions -->
+            <div class="flex items-center space-x-4">
+                <!-- Cart -->
+                <div class="relative">
+                    <button
+                        class="p-2.5 rounded-xl hover:bg-gray-100 cursor-pointer transition-colors duration-200 flex items-center justify-center"
+                        aria-label="Shopping cart">
+                        <fa-icon [icon]="faCartShopping" class="text-xl text-gray-700"></fa-icon>
+                        <!-- Cart Badge -->
+                        <span
+                            class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-sm">
+                            3
+                        </span>
+                    </button>
+                </div>
+
+                <!-- Auth Buttons - Hidden on mobile -->
+                <div class="hidden lg:flex items-center space-x-3">
+                    <a href="/"
+                        class="flex items-center px-4 py-2.5 rounded-full border border-teal-600 text-teal-600 hover:bg-teal-50 transition-colors duration-200 font-medium">
+                        <fa-icon [icon]="faUser" class="text-base mr-2"></fa-icon>
+                        Sign In
+                    </a>
+                    <a href="/"
+                        class="flex items-center px-4 py-2.5 rounded-full bg-teal-600 text-white hover:bg-teal-700 transition-colors duration-200 font-medium">
+                        <fa-icon [icon]="faUserPlus" class="text-base mr-2"></fa-icon>
+                        Sign Up
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button (click)="menu.toggle($event)" id="menuBtn"
+                    class="lg:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors duration-200"
+                    aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+                    <fa-icon [icon]="faBars" class="text-xl text-gray-700"></fa-icon>
+                </button>
+
+                <p-popover #menu styleClass="custom-popover rounded-2xl">
+                    <ng-template #content>
+                        <div
+                            class="w-screen max-w-xs p-4 bg-white text-black shadow-lg rounded-2xl border border-gray-200">
+                            <div class="space-y-3">
+                                <!-- Mobile Location Selector -->
+                                <div class="block md:hidden pb-3 border-b border-gray-100">
+                                    <div class="flex items-center gap-2 text-gray-700 mb-2">
+                                        <fa-icon [icon]="faLocationDot" class="text-teal-600"></fa-icon>
+                                        <span class="text-sm">
+                                            Deliver to <strong class="text-gray-900">Cairo</strong>
+                                        </span>
+                                    </div>
+                                    <button
+                                        class="text-teal-600 text-sm font-medium hover:text-teal-700 transition-colors"
+                                        (click)="op.toggle($event)">
+                                        Change location
+                                    </button>
+                                    <p-popover #op styleClass="custom-popover shadow-xl rounded-2xl">
+                                        <ng-template #content>
+                                            <div class="flex flex-col gap-4 p-4 w-80">
+                                                <h2 class="text-lg font-semibold text-gray-800">Choose delivery
+                                                    location</h2>
+
+                                                @if(!enterPINCode){
+                                                <div class="space-y-3">
+                                                    <p class="text-gray-600 text-sm">
+                                                        Sign in or set delivery location to check product
+                                                        availability, offers and more.
+                                                    </p>
+
+                                                    <button
+                                                        class="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-xl py-2 px-4 transition-colors duration-200">
+                                                        Sign in to select address
+                                                    </button>
+
+                                                    <div class="space-y-2">
+                                                        <button
+                                                            class="w-full text-left p-2 text-teal-700 font-medium cursor-pointer flex items-center gap-3 hover:bg-teal-50 rounded-xl transition-colors"
+                                                            (click)="enterPINCode = true">
+                                                            <fa-icon [icon]="faMapPin" class="text-teal-600"></fa-icon>
+                                                            <span>Enter a PIN Code</span>
+                                                        </button>
+
+                                                        <button
+                                                            class="w-full text-left p-2 text-teal-700 font-medium cursor-pointer flex items-center gap-3 hover:bg-teal-50 rounded-xl transition-colors">
+                                                            <fa-icon [icon]="faLocationCrosshairs"
+                                                                class="text-teal-600"></fa-icon>
+                                                            <span>Detect my location</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                }
+                                                @else {
+                                                <div class="space-y-4">
+                                                    <p class="text-gray-600 text-sm">
+                                                        Enter your PIN code to check product availability at your
+                                                        location.
+                                                    </p>
+
+                                                    <div class="relative">
+                                                        <input type="text" maxlength="6" minlength="6"
+                                                            class="w-full bg-white border border-gray-300 rounded-xl py-2 px-4 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition"
+                                                            placeholder="Enter PIN Code" aria-label="Enter PIN Code" />
+                                                    </div>
+
+                                                    <div class="flex gap-3">
+                                                        <button (click)="enterPINCode = false"
+                                                            class="flex-1 px-4 py-2 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">
+                                                            Cancel
+                                                        </button>
+                                                        <button
+                                                            class="flex-1 px-4 py-2 rounded-xl bg-teal-600 text-white hover:bg-teal-700 transition-colors font-medium">
+                                                            Apply
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                }
+                                            </div>
+                                        </ng-template>
+                                    </p-popover>
+                                </div>
+
+                                <a href="#"
+                                    class="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                                    <fa-icon [icon]="faUser" class="text-gray-600"></fa-icon>
+                                    <span>Sign In</span>
+                                </a>
+                                <a href="#"
+                                    class="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+                                    <fa-icon [icon]="faUserPlus" class="text-gray-600"></fa-icon>
+                                    <span>Sign Up</span>
+                                </a>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-popover>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+
+

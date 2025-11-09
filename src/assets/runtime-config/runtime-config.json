@@ -1,0 +1,29 @@
+{
+    "api": {
+       
+    },
+    "app": {
+        "name": "MyStore Dev",
+        "version": "1.0.0",
+        "defaultLanguage": "en",
+        "supportedLanguages": ["ar", "en"],
+        "itemsPerPage": 10,
+        "maxFileSize": 5242880
+    },
+    "features": {
+        "enableDebug": true,
+        "enableAnalytics": false,
+        "enableServiceWorker": false,
+        "enablePWA": false
+    },
+    "services": {
+        "googleAnalytics": "",
+        "sentry": "",
+        "stripe": "pk_test_..."
+    },
+    "timeouts": {
+        "api": 30000,
+        "upload": 60000,
+        "download": 60000
+    }
+}
