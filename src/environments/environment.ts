@@ -149,7 +149,7 @@ export const environment = {
     },
 
     retries:{
-        api: 3,
+        api: 1,
     }
 
 }

@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { Config } from 'core/services/config';
 import { HttpClient } from '@angular/common/http';
-import { Observable, timeout, retry , throwError } from 'rxjs';
-import { HttpRequestOptions , HttpOptionsFactory} from 'core/http/http-options.factory';
+import { Observable, timeout, retry, throwError } from 'rxjs';
+import { HttpRequestOptions, HttpOptionsFactory } from 'core/http/http-options.factory';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorHandler } from 'core/http/http-error.handler.service';
 
@@ -17,9 +17,9 @@ export class Api {
   private readonly http = inject(HttpClient);
   private readonly errorHandler = inject(HttpErrorHandler);
 
-  private buildUrl(endpoint: string): string {
+  buildUrl(endpoint: () => string): string {
     const baseUrl = this.configService.apiConfig.baseUrl;
-    return `${baseUrl}/${endpoint}`;
+    return `${baseUrl}${endpoint()}`;
   }
 
 
@@ -27,9 +27,9 @@ export class Api {
     if (skipHandling) {
       return throwError(() => error);
     }
-    
+
     return this.errorHandler.handleError()(error);
-  } 
+  }
 
 
 
@@ -45,7 +45,7 @@ export class Api {
     const context = HttpOptionsFactory.createContext(options);
     const headers = HttpOptionsFactory.createHeaders(options.headers);
 
-    const url = this.buildUrl(endpoint);
+    const url = this.buildUrl(() => endpoint);
 
 
     return this.http.get<T>(
@@ -57,16 +57,39 @@ export class Api {
       }
     ).pipe(
 
-      timeout(options.customTimeout??this.configService.apiConfig.timeout ?? this.defaultTimeoutDuration),
-      retry(options.customTimeout??this.configService.apiConfig.retryCount ?? this.defaultRetryCount),
+      timeout(options.customTimeout ?? this.configService.apiConfig.timeout ?? this.defaultTimeoutDuration),
+      retry(this.configService.apiConfig.retryCount ?? this.defaultRetryCount),
       catchError(error => this.handleError(error, options.skipErrorHandling))
 
     );
   }
 
- 
 
+  public post<Request = any, Response = any>(
+    endpoint: () => string,
+    body: Request,
+    options: HttpRequestOptions = {},
+  ): Observable<Response> {
 
+    const httpParams = HttpOptionsFactory.createParams(options.params);
+    const context = HttpOptionsFactory.createContext(options);
+    const headers = HttpOptionsFactory.createHeaders(options.headers);
+    const url = this.buildUrl(endpoint);
+
+    return this.http.post<Response>(
+      url,
+      body,
+      {
+        params: httpParams,
+        context: context,
+        headers: headers
+      }
+    ).pipe(
+      timeout(options.customTimeout ?? this.configService.apiConfig.timeout ?? this.defaultTimeoutDuration),
+      retry(this.configService.apiConfig.retryCount ?? this.defaultRetryCount),
+      catchError(error => this.handleError(error, options.skipErrorHandling))
+    );
+  }
 
 
 

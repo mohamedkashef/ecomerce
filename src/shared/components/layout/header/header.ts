@@ -5,11 +5,12 @@ import { PopoverModule } from 'primeng/popover';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { Location } from 'core/services/location';
+import { RouterLink } from "@angular/router";
 
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule, FontAwesomeModule, PopoverModule, ButtonModule],
+  imports: [CommonModule, FontAwesomeModule, PopoverModule, ButtonModule, RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })

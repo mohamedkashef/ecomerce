@@ -1,37 +1,37 @@
 import { Routes } from '@angular/router';
-import { MainLayout } from '../layouts/main-layout/main-layout';
-import { Home } from '../pages/home/home';
 import { AppShell } from './app-shell';
-import { RegisterPage } from '../features/auth/pages/register-page/register-page';
+import { autoRedirectchildGuard } from 'core/guards/auto-redirectchild-guard';
+
 
 
 export const routes: Routes = [
 
-    // {
-    //     path: 'auth',
-    //     canActivate: [PublicGuard],
-    //     loadChildren: () => import(`../features/auth/auth.routes`).then(m => m.authRoutes)
-    // },
 
-    //    // 🔐 Auth Routes - بدون authentication
     {
         path: '',
-        component: AppShell, children: [
+        component: AppShell,
+        children: [
             {
-                path: '', component: MainLayout, children: [
-                    { path: 'home', redirectTo: '', pathMatch: 'full' },
-                    { path: '', component: Home },
-                    { path: 'register', component: RegisterPage },
-                    {
-                        path: 'auth',
-                        loadChildren: () => import('../features/auth/auth.routes').then(m => m.routes)
-                    }
-                ]
-
+                path: '',
+                canActivateChild:[autoRedirectchildGuard],
+                loadChildren: () => import('../layouts/layout.routes').then(m => m.LayoutRoutes)
             },
-
-
-
         ]
+    },
+    {
+        path: 'not-found',
+        loadComponent: () => import('../pages/not-found/not-found').then(m => m.NotFound),
+        title: 'Page Not Found'
+    },
+    {
+        path:'access-denied',
+        loadComponent: () => import('../pages/access-denied/access-denied').then(m => m.AccessDenied),
+        title: 'Access Denied'
+    },
+
+    {
+        path: '**',
+        redirectTo: 'not-found'
     }
+
 ];

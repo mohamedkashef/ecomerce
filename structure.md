@@ -347,11 +347,7 @@
 │   │   ├── auth.service.ts             # 🔐 Authentication State
 │   │   ├── api.service.ts              # 🌐 HTTP Client Wrapper
 │   │   ├── config.service.ts           # ⚙️  Runtime Configuration
-│   │   ├── seo.service.ts              # 📊 SEO Management
-│   │   ├── layout.service.ts           # 🎨 Layout & Theme State
-│   │   ├── toast.service.ts            # 🔔 Notification System
-│   │   ├── storage.service.ts          # 💾 Storage Abstraction
-│   │   └── event-bus.service.ts        # 📡 Event Communication
+ 
 │   │
 │   └── config/                         # ⚙️  Core Configuration
 │       └── app-initializer.config.ts   # 🎯 App Initialization Logic

@@ -9,13 +9,25 @@ import Aura from '@primeuix/themes/aura';
 import { initializeApp } from 'core/config/app-initializer';
 import { Config } from 'core/services/config';
 import { APP_INITIALIZER } from '@angular/core';
+import { provideHttpClient,withFetch } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
+import { withPreloading, PreloadAllModules } from '@angular/router';
+import { Auth } from 'core/services/auth';
+import { Storageservice } from 'core/services/storageservice';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    Auth,
+    Storageservice,
+
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes), provideClientHydration(withEventReplay()),
+    provideRouter(routes),
+    provideClientHydration(withEventReplay()),
 
+
+
+    provideHttpClient(withFetch()),
 
 
     {
@@ -26,7 +38,7 @@ export const appConfig: ApplicationConfig = {
     },
 
 
-
+    MessageService,
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
