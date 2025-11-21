@@ -13,7 +13,6 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                canActivateChild:[autoRedirectchildGuard],
                 loadChildren: () => import('../layouts/layout.routes').then(m => m.LayoutRoutes)
             },
         ]
