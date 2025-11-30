@@ -1,4 +1,4 @@
-import { HttpContext, HttpParams } from '@angular/common/http';
+import { HttpContext, HttpParams,HttpHeaders } from '@angular/common/http';
 import {
   SKIP_ERROR_HANDLING,
   SKIP_AUTH_HEADER,
@@ -91,12 +91,31 @@ export class HttpOptionsFactory {
   /**
    * 🎯 إنشاء headers object
    */
-  static createHeaders(customHeaders: { [key: string]: string } = {}): { [key: string]: string } {
-    const defaultHeaders = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    };
+  // static createHeaders(customHeaders: { [key: string]: string } = {}): { [key: string]: string } {
+  //   const defaultHeaders = {
+  //     'Content-Type': 'application/json',
+  //     'Accept': 'application/json'
+  //   };
 
-    return { ...defaultHeaders, ...customHeaders };
-  }
+  //   return { ...defaultHeaders, ...customHeaders };
+  // }
+
+
+static createHeaders(customHeaders: { [key: string]: string } = {}): HttpHeaders {
+  let headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  });
+
+  Object.entries(customHeaders).forEach(([key, value]) => {
+    headers = headers.set(key, value);
+  });
+
+  return headers;
+}
+
+
+
+
+
 }

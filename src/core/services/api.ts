@@ -35,7 +35,7 @@ export class Api {
 
 
   public get<T>(
-    endpoint: string,
+    endpoint: () => string,
     params?: any,
     options: HttpRequestOptions = {},
   ): Observable<T> {
@@ -45,7 +45,7 @@ export class Api {
     const context = HttpOptionsFactory.createContext(options);
     const headers = HttpOptionsFactory.createHeaders(options.headers);
 
-    const url = this.buildUrl(() => endpoint);
+    const url = this.buildUrl(endpoint);
 
 
     return this.http.get<T>(
