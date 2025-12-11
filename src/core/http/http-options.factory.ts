@@ -1,5 +1,6 @@
 import { HttpContext, HttpParams,HttpHeaders } from '@angular/common/http';
 import {
+  WITH_CREDENTIALS,
   SKIP_ERROR_HANDLING,
   SKIP_AUTH_HEADER,
   SKIP_LOADING,
@@ -13,6 +14,7 @@ import {
 
 
 export interface HttpRequestOptions {
+  withCredentials?: boolean;
   skipErrorHandling?: boolean;
   skipAuth?: boolean;
   skipLoading?: boolean;
@@ -31,6 +33,10 @@ export class HttpOptionsFactory {
    */
   static createContext(options: HttpRequestOptions = {}): HttpContext {
     const context = new HttpContext();
+
+    if (options.withCredentials) {
+      context.set(WITH_CREDENTIALS, true);
+    }
 
     if (options.skipErrorHandling) {
       context.set(SKIP_ERROR_HANDLING, true);
