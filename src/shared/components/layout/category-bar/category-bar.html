@@ -1,0 +1,45 @@
+<nav class="w-full bg-teal-100 fixed z-40 shadow-md">
+  <div class="container mx-auto px-6 lg:px-8">
+    <ul class="flex justify-between py-3 text-gray-700">
+      
+      <li class="flex items-center gap-2 cursor-pointer hover:text-teal-600 transition">
+        <fa-icon [icon]="faListUl" class="text-base"></fa-icon>
+        <span>All Categories</span>
+      </li>
+
+      <li class="flex items-center gap-2 cursor-pointer hover:text-teal-600 transition">
+        <fa-icon [icon]="faCapsules" class="text-base"></fa-icon>
+        <span>Medicine</span>
+      </li>
+
+      <li class="flex hidden sm:block items-center gap-2 cursor-pointer hover:text-teal-600 transition">
+        <fa-icon [icon]="faFlask" class="text-base"></fa-icon>
+        <span>Lab Tests</span>
+      </li>
+
+      <li class="flex hidden sm:block items-center gap-2 cursor-pointer hover:text-teal-600 transition">
+        <fa-icon [icon]="faSpa" class="text-base"></fa-icon>
+        <span>Beauty</span>
+      </li>
+
+      <li class="flex hidden md:block items-center gap-2 cursor-pointer hover:text-teal-600 transition">
+        <fa-icon [icon]="faHeartPulse" class="text-base"></fa-icon>
+        <span>Wellness</span>
+      </li>
+
+      <li class="flex hidden lg:block items-center gap-2 cursor-pointer hover:text-teal-600 transition">
+        <fa-icon [icon]="faPills" class="text-base"></fa-icon>
+        <span>Health Corner</span>
+      </li>
+
+      <li>
+        <a routerLink="/offers" 
+           class="flex items-center gap-2 cursor-pointer hover:text-teal-600 transition">
+          <fa-icon [icon]="faGift" class="text-base"></fa-icon>
+          <span>Offers</span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
