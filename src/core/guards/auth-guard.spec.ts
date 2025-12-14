@@ -4,7 +4,7 @@ import { CanMatchFn } from '@angular/router';
 import { authGuard } from './auth-guard';
 
 describe('authGuard', () => {
-  const executeGuard: CanMatchFn = (...guardParameters) => 
+  const executeGuard: CanMatchFn = (...guardParameters) =>
       TestBed.runInInjectionContext(() => authGuard(...guardParameters));
 
   beforeEach(() => {

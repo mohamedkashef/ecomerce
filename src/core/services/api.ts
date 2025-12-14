@@ -17,9 +17,15 @@ export class Api {
   private readonly http = inject(HttpClient);
   private readonly errorHandler = inject(HttpErrorHandler);
 
+<<<<<<< HEAD
   buildUrl(endpoint: string): string {
     const baseUrl = this.configService.apiConfig.baseUrl;
     return `${baseUrl}${endpoint}`;
+=======
+  buildUrl(endpoint: () => string): string {
+    const baseUrl = this.configService.apiConfig.baseUrl;
+    return `${baseUrl}${endpoint()}`;
+>>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
   }
 
 
@@ -35,7 +41,11 @@ export class Api {
 
 
   public get<T>(
+<<<<<<< HEAD
     endpoint: string,
+=======
+    endpoint: () => string,
+>>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
     params?: any,
     options: HttpRequestOptions = {},
   ): Observable<T> {
@@ -66,7 +76,11 @@ export class Api {
 
 
   public post<Request = any, Response = any>(
+<<<<<<< HEAD
     endpoint: string,
+=======
+    endpoint: () => string,
+>>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
     body: Request,
     options: HttpRequestOptions = {},
   ): Observable<Response> {

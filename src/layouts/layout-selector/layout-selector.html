@@ -1,0 +1,20 @@
+@switch (currentUserRole) {
+  @case('loading') {
+    <div class="loading-screen">loading</div>
+  }
+  @case (Roles.Admin) {
+    <app-admin-layout />
+  }
+
+  @case (Roles.Staff) {
+    <app-staff-layout />
+  }
+
+  @case (Roles.User) {
+    <app-user-layout />
+  }
+
+  @case(null) {
+    <app-main-layout />
+  }
+}
