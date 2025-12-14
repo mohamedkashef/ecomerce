@@ -9,15 +9,9 @@ import { Inject, PLATFORM_ID } from '@angular/core';
 import { LoginRequest } from 'core/models/LoginRequest';
 import { LoginResponse } from 'core/models/LoginResponse';
 import { RegisterRequest } from 'core/models/RegisterRequest';
-<<<<<<< HEAD
 import { RegisterResponse } from 'core/models/RegisterResponse';
 import { Config } from 'core/services/config';
 import { VerifyTokenResponse } from 'core/models/VerifyTokenResponse';
-=======
-import { Config } from 'core/services/config';
-import { VerifyTokenResponse } from 'core/models/VerifyTokenResponse';
-import { header } from 'shared/components/layout/header/header';
->>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
 import { of } from 'rxjs';
 
 @Injectable({
@@ -50,15 +44,9 @@ export class Auth {
     this.currentUser$ = this.currentUserSubject.asObservable();
   }
 
-<<<<<<< HEAD
   registration(registrationData: RegisterRequest): Observable<RegisterResponse> {
     return this.apiService.post<RegisterRequest, RegisterResponse>(
       this.endpoint.auth.register(),
-=======
-  registration(registrationData: RegisterRequest): Observable<LoginResponse> {
-    return this.apiService.post<RegisterRequest, LoginResponse>(
-      this.endpoint.auth.register,
->>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
       registrationData,
       { skipAuth: true }
     ).pipe(
@@ -76,11 +64,7 @@ export class Auth {
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
     return this.apiService.post<LoginRequest, LoginResponse>(
-<<<<<<< HEAD
       this.endpoint.auth.login(),
-=======
-      this.endpoint.auth.login,
->>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
       credentials,
       { skipAuth: true }
     ).pipe(
@@ -103,20 +87,10 @@ export class Auth {
   }
 
   verifyTokenAndGetUser(token: string): Observable<User> {
-<<<<<<< HEAD
 
 console.log('Verifying token:', token);
     return this.apiService
       .get<VerifyTokenResponse>(this.endpoint.auth.verifyToken(),null, {
-=======
-    // التحقق من الكاش أولاً
-    if (this.isCacheValid()) {
-      return of(this.userVerificationCache!.user);
-    }
-
-    return this.apiService
-      .get<VerifyTokenResponse>(this.endpoint.auth.verifyToken, {
->>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
         headers: { token: token }
       })
       .pipe(
@@ -131,18 +105,11 @@ console.log('Verifying token:', token);
           // استخدام البيانات من الـ backend مع البريد الإلكتروني من localStorage
           const backendUser: User = {
             name: response.decoded.name,
-<<<<<<< HEAD
             email: storedUser?.email|| "",
             role: response.decoded.role
           };
 
           console.log('Verified user from backend:', backendUser);
-=======
-            email: storedUser?.email || this.extractEmailFromToken(token) || "",
-            role: response.decoded.role
-          };
-
->>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
           // تحديث البيانات المحلية بالبيانات من الـ backend
           this.setCurrentUser(backendUser);
           this.updateVerificationCache(backendUser);
@@ -161,11 +128,8 @@ console.log('Verifying token:', token);
     const token = this.getToken();
 
     if (!token) {
-<<<<<<< HEAD
       console.log('No token found, user is not authenticated');
 
-=======
->>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
       return of(false);
     }
 
@@ -180,13 +144,6 @@ console.log('Verifying token:', token);
       return of(false);
     }
 
-<<<<<<< HEAD
-=======
-    // التحقق من الكاش أولاً
-    if (this.isCacheValid()) {
-      return of(true);
-    }
->>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
 
     return this.verifyTokenAndGetUser(token).pipe(
       map(user => !!user),
@@ -206,11 +163,8 @@ console.log('Verifying token:', token);
 
     // التحقق من الكاش أولاً
     if (this.isCacheValid() && this.userVerificationCache!.user.role === requiredRole) {
-<<<<<<< HEAD
       console.log('returned from cache : requiredRole=', requiredRole);
 
-=======
->>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
       return of(true);
     }
 
@@ -221,23 +175,12 @@ console.log('Verifying token:', token);
   }
 
   getCurrentUserRole(): Observable<string | null> {
-<<<<<<< HEAD
     const token = this.getToken();
     if (!token) {
       return of(null);
     }
 
 
-=======
-        const token = this.getToken();
-    if (!token) {
-      return of(null);
-    }
-    
-    if (this.isCacheValid()) {
-      return of(this.userVerificationCache!.user.role);
-    }
->>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
     return this.verifyTokenAndGetUser(token).pipe(
       map(user => user.role),
       catchError(() => of(null))
@@ -329,11 +272,7 @@ console.log('Verifying token:', token);
   }
 
   changePassword(currentPassword: string, newPassword: string): Observable<any> {
-<<<<<<< HEAD
     return this.apiService.post(this.endpoint.auth.changePassword(), {
-=======
-    return this.apiService.post(this.endpoint.auth.changePassword, {
->>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
       currentPassword,
       newPassword,
       rePassword: newPassword
@@ -341,21 +280,13 @@ console.log('Verifying token:', token);
   }
 
   forgotPassword(email: string): Observable<any> {
-<<<<<<< HEAD
     return this.apiService.post(this.endpoint.auth.forgetpassword(), { email }, {
-=======
-    return this.apiService.post(this.endpoint.auth.forgetpassword, { email }, {
->>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
       skipAuth: true
     });
   }
 
   resetPassword(email: string, newPassword: string): Observable<any> {
-<<<<<<< HEAD
     return this.apiService.post(this.endpoint.auth.resetPassword(), {
-=======
-    return this.apiService.post(this.endpoint.auth.resetPassword, {
->>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
       email,
       newPassword
     }, {
@@ -364,11 +295,7 @@ console.log('Verifying token:', token);
   }
 
   verifyResetCode(code: string): Observable<any> {
-<<<<<<< HEAD
     return this.apiService.post(this.endpoint.auth.verifyResetCode(), { code }, {
-=======
-    return this.apiService.post(this.endpoint.auth.verifyResetCode, { code }, {
->>>>>>> c5c9f69ea1ac9e4112d04724c6e03ac1090fd8e4
       skipAuth: true
     });
   }
