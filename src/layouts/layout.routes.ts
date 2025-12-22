@@ -11,6 +11,8 @@ import { CanMatch } from '@angular/router';
 import { AdminLayout } from './admin-layout/admin-layout';
 import { UserLayout } from './user-layout/user-layout';
 import { ssrauthGuard } from 'core/guards/ssrauth-guard';
+import { RenderMode } from '@angular/ssr';
+
 
 export const LayoutRoutes: Routes = [
 
@@ -18,36 +20,26 @@ export const LayoutRoutes: Routes = [
   {
     path: 'staff',
     component: StaffLayout,
-    // data: { roles: ['staff', 'admin'] },
-    children: []
+    loadChildren:()=>import('../roles/staff/staff.routing').then(m=>m.routes)
   },
+
   {
     path: 'admin',
     component: AdminLayout,
     data: { roles: ['admin'] },
-    children: [
-      {
-        path: '',
-        loadComponent: () => import('../pages/home/home').then(m => m.Home)
-      }
-    ]
+    loadChildren:()=>import('../roles/admin/admin.routing').then(m=>m.routes)
   },
 
   {
     path: '',
     component: UserLayout,
     canMatch: [authGuard],
-    children: [
-      {
-        path: '',
-        loadComponent: () => import('../pages/home/home').then(m => m.Home)
-      }
-    ]
-
+    loadChildren:()=>import('../roles/user/user.routing').then(m=>m.routes)
   },
+
   {
     path: '',
-    canMatch:[ssrauthGuard],
+    // canMatch:[ssrauthGuard],
     component: MainLayout,
     children: [
       {

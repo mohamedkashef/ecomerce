@@ -34,11 +34,11 @@ export class Api {
 
 
 
-  public get<T>(
+  public get<Response>(
     endpoint: string,
     params?: any,
     options: HttpRequestOptions = {},
-  ): Observable<T> {
+  ): Observable<Response> {
 
 
     const httpParams = HttpOptionsFactory.createParams(params || options.params);
@@ -48,7 +48,7 @@ export class Api {
     const url = this.buildUrl(endpoint);
 
 
-    return this.http.get<T>(
+    return this.http.get<Response>(
       url,
       {
         params: httpParams,

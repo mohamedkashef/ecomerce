@@ -1,20 +1,55 @@
 <app-category-bar></app-category-bar>
 <main class="container mx-auto px-6 lg:px-8 mt-20">
-    <p-carousel [value]="slides" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="4000"
-        [showIndicators]="true" [showNavigators]="true">
-
-        <ng-template pTemplate="item" let-slide>
-            <img [src]="slide.image" class="w-full h-64 md:h-96 object-cover rounded-lg" />
-        </ng-template>
-    </p-carousel>
+  <p-carousel
+    [value]="slides"
+    [numVisible]="1"
+    [numScroll]="1"
+    [circular]="true"
+    [autoplayInterval]="4000"
+    [showIndicators]="true"
+    [showNavigators]="true"
+  >
+    <ng-template pTemplate="item" let-slide>
+      <img [src]="slide.image" class="w-full h-64 md:h-96 object-cover rounded-lg" />
+    </ng-template>
+  </p-carousel>
 </main>
 
 <main class="container mx-auto px-6 lg:px-8 mt-6">
-    <p-carousel [value]="slides" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="4000"
-        [showIndicators]="true" [showNavigators]="true">
-
-        <ng-template pTemplate="item" let-slide>
-            <img [src]="slide.image" class="w-full h-64 md:h-96 object-cover rounded-lg" />
-        </ng-template>
-    </p-carousel>
+  <p-carousel
+    [value]="slides"
+    [numVisible]="1"
+    [numScroll]="1"
+    [circular]="true"
+    [autoplayInterval]="4000"
+    [showIndicators]="true"
+    [showNavigators]="true"
+  >
+    <ng-template pTemplate="item" let-slide>
+      <img [src]="slide.image" class="w-full h-64 md:h-96 object-cover rounded-lg" />
+    </ng-template>
+  </p-carousel>
 </main>
+
+<h1 class="bg-amber-200">signals</h1>
+<button class="p-2 bg-amber-500" (click)="changeName('mohamed change Name')">Change Value</button>
+<h1>{{ name() }}</h1>
+<h1>{{ name2 }}</h1>
+
+
+<h1>
+  {{nameWithPrefix()}}
+</h1>
+
+
+<input [(ngModel)]="name" class="border border-gray-500 focus:ring-2 rounded-full focus:ring-blue-800 outline-blue-800 outline-1 transition-all duration-100 p-2" type="text" placeholder="Enter The Name" >
+<textarea class="block" name="" id="">{{nameWithPrefix()}}</textarea>
+
+
+
+
+<h1 class="mt-5 bg-amber-200">Two-Way Binding</h1>
+<input class="border border-gray-500 focus:ring-2 rounded-full focus:ring-blue-800 outline-blue-800 outline-1 transition-all duration-100 p-2" type="text" placeholder="Enter The Name" [(ngModel)]="twowaybindingName">
+<textarea class="block" name="" id="">{{twowaybindingName}}</textarea>
+<button class="p-2 bg-amber-500"  (click)="changeName1()">Change Name</button>
+
